@@ -1,0 +1,3 @@
+dni,nombre,apellido,direccion,fechaNacimiento,tipoPersona,banco,fechaAlta
+43464667,Uriel,Poncho,Viamonte,2001-11-10,PERSONA_FISICA,MANOLO,2024-08-06
+43464666,Peperino,Poncho,Estomba,2002-01-07,PERSONA_FISICA,MANOLO,2024-08-06

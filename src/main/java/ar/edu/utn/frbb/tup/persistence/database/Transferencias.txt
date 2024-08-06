@@ -1,0 +1,3 @@
+cuentaOrigen,cuentaDestino,fecha,monto,moneda,tipoTransferencia,descripcionBreve
+70239436,49550732,2024-08-06,17000.0,ARS,CREDITO,Prueba hola juancito
+
