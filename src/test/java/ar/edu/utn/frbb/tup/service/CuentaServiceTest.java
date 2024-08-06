@@ -179,7 +179,6 @@ public class CuentaServiceTest {
         assertEquals(cuentas, cuentasMostradas);
     }
 
-
     @Test
     public void testObtenerTodasLasCuentasFail() throws CuentaNoEncontradaException {
         List<Cuenta> cuentas = List.of();
