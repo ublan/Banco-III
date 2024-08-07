@@ -19,11 +19,11 @@ import java.util.List;
 @Repository
 public class TransferenciaDao {
 
-    private static final String ARCHIVO_TRANSFERENCIAS = "src\\main\\java\\ar\\edu\\utn\\frbb\\tup\\persistence\\database\\Transferencias.txt";
+    private static final String TRANSFERENCIASTXT = "src\\main\\java\\ar\\edu\\utn\\frbb\\tup\\persistence\\database\\Transferencias.txt";
 
     public List<Transferencia> obtenerTransferenciasPorCbu(long cbu) {
         List<Transferencia> transacciones = new ArrayList<>();
-        try (BufferedReader lector = new BufferedReader(new FileReader(ARCHIVO_TRANSFERENCIAS))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(TRANSFERENCIASTXT))) {
             String linea;
             lector.readLine();
             while ((linea = lector.readLine()) != null) {
@@ -42,8 +42,8 @@ public class TransferenciaDao {
     }
 
     public void guardarTransferencia(Transferencia transferencia) {
-        boolean archivoNuevo = !(new File(ARCHIVO_TRANSFERENCIAS).exists());
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(ARCHIVO_TRANSFERENCIAS, true))) {
+        boolean archivoNuevo = !(new File(TRANSFERENCIASTXT).exists());
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(TRANSFERENCIASTXT, true))) {
             if (archivoNuevo) {
                 escritor.write("cuentaOrigen,cuentaDestino,fecha,monto,moneda,tipoTransferencia,descripcionBreve");
                 escritor.newLine();
@@ -66,7 +66,7 @@ public class TransferenciaDao {
     public void borrarTransferencia(long CBU) {
         List<String> transferenciasStr = new ArrayList<>();
 
-        try (BufferedReader lector = new BufferedReader(new FileReader(ARCHIVO_TRANSFERENCIAS))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(TRANSFERENCIASTXT))) {
             String linea = lector.readLine();
             transferenciasStr.add(linea);
             while ((linea = lector.readLine()) != null) {
@@ -81,7 +81,7 @@ public class TransferenciaDao {
         }
 
         if (!transferenciasStr.isEmpty()) {
-            try (BufferedWriter escritor = new BufferedWriter(new FileWriter(ARCHIVO_TRANSFERENCIAS))) {
+            try (BufferedWriter escritor = new BufferedWriter(new FileWriter(TRANSFERENCIASTXT))) {
                 for (String transferenciaStr : transferenciasStr) {
                     escritor.write(transferenciaStr);
                     escritor.newLine();

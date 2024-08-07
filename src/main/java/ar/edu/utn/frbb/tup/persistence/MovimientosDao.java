@@ -13,12 +13,12 @@ import java.util.List;
 @Repository
 public class MovimientosDao {
 
-    private static final String NOMBRE_ARCHIVO_MOVIMIENTOS = "src\\main\\java\\ar\\edu\\utn\\frbb\\tup\\persistence\\database\\Movimientos.txt";
+    private static final String MOVIMIENTOSTXT = "src\\main\\java\\ar\\edu\\utn\\frbb\\tup\\persistence\\database\\Movimientos.txt";
 
     public void guardarMovimiento(Movimiento movimiento) {
-        boolean archivoNuevo = !(new File(NOMBRE_ARCHIVO_MOVIMIENTOS).exists());
+        boolean archivoNuevo = !(new File(MOVIMIENTOSTXT).exists());
 
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO_MOVIMIENTOS, true))) {
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(MOVIMIENTOSTXT, true))) {
             if (archivoNuevo) {
                 escritor.write("CBU,fechaOperacion,tipoOperacion,monto");
                 escritor.newLine();
@@ -37,7 +37,7 @@ public class MovimientosDao {
     }
 
     public List<Movimiento> obtenerOperacionesPorCBU(long cbu) {
-        List<Movimiento> movimientos = leerMovimientosDeArchivo(NOMBRE_ARCHIVO_MOVIMIENTOS);
+        List<Movimiento> movimientos = leerMovimientosDeArchivo(MOVIMIENTOSTXT);
         List<Movimiento> resultado = new ArrayList<>();
 
         for (Movimiento movimiento : movimientos) {
@@ -85,7 +85,7 @@ public class MovimientosDao {
     public void borrarMovimiento(long CBU) {
         List<String> movimientosStr = new ArrayList<>();
 
-        try (BufferedReader lector = new BufferedReader(new FileReader(NOMBRE_ARCHIVO_MOVIMIENTOS))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(MOVIMIENTOSTXT))) {
             String linea = lector.readLine();
             movimientosStr.add(linea);
             while ((linea = lector.readLine()) != null) {
@@ -100,7 +100,7 @@ public class MovimientosDao {
         }
 
         if (!movimientosStr.isEmpty()) {
-            try (BufferedWriter escritor = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO_MOVIMIENTOS))) {
+            try (BufferedWriter escritor = new BufferedWriter(new FileWriter(MOVIMIENTOSTXT))) {
                 for (String movimientoStr : movimientosStr) {
                     escritor.write(movimientoStr);
                     escritor.newLine();

@@ -17,7 +17,7 @@ import ar.edu.utn.frbb.tup.model.*;
 
 @Repository
 public class CuentaDao {
-    private static final String NOMBRE_ARCHIVO = "src\\main\\java\\ar\\edu\\utn\\frbb\\tup\\persistence\\DataBase\\Cuentas.txt"; //cambiar aca 
+    private static final String CUENTASTXT = "src\\main\\java\\ar\\edu\\utn\\frbb\\tup\\persistence\\DataBase\\Cuentas.txt"; //cambiar aca 
 
     public Cuenta obtenerCuentaPorCBU(long cbu) {
         List<Cuenta> cuentas = leerCuentasDeArchivo();
@@ -31,7 +31,7 @@ public class CuentaDao {
 
     public void actualizarBalanceCuenta(long cbu, double nuevoBalance) {
         List<Cuenta> cuentas = leerCuentasDeArchivo();
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO))) {
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(CUENTASTXT))) {
             escritor.write("CBU,nombre,tipoCuenta,balance,moneda,fechaCreacion,titularDni");
             escritor.newLine();
             
@@ -54,9 +54,9 @@ public class CuentaDao {
     }
     
     public void escribirEnArchivo(Cuenta cuenta) {
-        boolean archivoNuevo = !(new File(NOMBRE_ARCHIVO).exists());
+        boolean archivoNuevo = !(new File(CUENTASTXT).exists());
 
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO, true))) {
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(CUENTASTXT, true))) {
             // Si el archivo es nuevo, escribir la cabecera
             if (archivoNuevo) {
                 escritor.write("CBU,nombre,tipoCuenta,balance,moneda,fechaCreacion,titularDni");
@@ -72,7 +72,7 @@ public class CuentaDao {
             escritor.write(cuenta.getDniTitular()+"");
             escritor.newLine();
 
-            System.out.println("Datos de la cuenta guardados en " + NOMBRE_ARCHIVO + " correctamente.");
+            System.out.println("Datos de la cuenta guardados en " + CUENTASTXT + " correctamente.");
         } catch (IOException ex) {
             System.err.println("Error al escribir en el archivo: " + ex.getMessage());
         }
@@ -81,7 +81,7 @@ public class CuentaDao {
 
     private List<Cuenta> leerCuentasDeArchivo() {
         List<Cuenta> cuentas = new ArrayList<>();
-        try (BufferedReader lector = new BufferedReader(new FileReader(NOMBRE_ARCHIVO))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(CUENTASTXT))) {
             String linea;
             lector.readLine(); // Leer la cabecera
     
@@ -126,7 +126,7 @@ public class CuentaDao {
         List<String> cuentasStr = new ArrayList<>();
         Cuenta cuenta = null; 
         CuentaDao cuentaDao = new CuentaDao();
-        try (BufferedReader lector = new BufferedReader(new FileReader(NOMBRE_ARCHIVO))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(CUENTASTXT))) {
             String linea = lector.readLine();
             cuentasStr.add(linea);
             while ((linea = lector.readLine()) != null) {
@@ -144,7 +144,7 @@ public class CuentaDao {
         }
 
         if (cuenta != null) {
-            try (BufferedWriter escritor = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO))) {
+            try (BufferedWriter escritor = new BufferedWriter(new FileWriter(CUENTASTXT))) {
                 for (String cuentaStr : cuentasStr) {
                     escritor.write(cuentaStr);
                     escritor.newLine();
@@ -163,7 +163,7 @@ public class CuentaDao {
         List<Cuenta> cuentasEncontradas = new ArrayList<>();
         CuentaDao cuentaDao = new CuentaDao();
 
-        try (BufferedReader lector = new BufferedReader(new FileReader(NOMBRE_ARCHIVO))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(CUENTASTXT))) {
             String linea = lector.readLine();
             while ((linea = lector.readLine()) != null) {
                 String[] campos = linea.split(",");
@@ -182,7 +182,7 @@ public class CuentaDao {
         List<Cuenta> cuentas = new ArrayList<>();
         CuentaDao cuentaDao = new CuentaDao();
 
-        try (BufferedReader lector = new BufferedReader(new FileReader(NOMBRE_ARCHIVO))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(CUENTASTXT))) {
             String linea = lector.readLine();
             while ((linea = lector.readLine()) != null) {
                 String[] campos = linea.split(",");

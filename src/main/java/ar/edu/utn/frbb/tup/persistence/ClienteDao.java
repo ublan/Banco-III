@@ -15,12 +15,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ClienteDao {
 
-    private static final String NOMBRE_ARCHIVO = "src\\main\\java\\ar\\edu\\utn\\frbb\\tup\\persistence\\database\\Clientes.txt";
+    private static final String CLIENTESTXT = "src\\main\\java\\ar\\edu\\utn\\frbb\\tup\\persistence\\database\\Clientes.txt";
     
     
     public void crearCliente(Cliente cliente) {
-        boolean archivoNuevo = !(new File(NOMBRE_ARCHIVO).exists());
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO, true))) {
+        boolean archivoNuevo = !(new File(CLIENTESTXT).exists());
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(CLIENTESTXT, true))) {
             if (archivoNuevo) {
                 escritor.write("dni,nombre,apellido,direccion,fechaNacimiento,tipoPersona,banco,fechaAlta");
                 escritor.newLine();
@@ -45,7 +45,7 @@ public class ClienteDao {
     }
 
     public Cliente findByDni(long dni) {
-        try (BufferedReader lector = new BufferedReader(new FileReader(NOMBRE_ARCHIVO))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(CLIENTESTXT))) {
             String linea;
             lector.readLine(); // Leer la línea de encabezado
             while ((linea = lector.readLine()) != null) {
@@ -89,7 +89,7 @@ public class ClienteDao {
         List<Cliente> clientes = new ArrayList<>();
         List<String> clientesStr = new ArrayList<>();
         Cliente cliente = null;
-        try (BufferedReader lector = new BufferedReader(new FileReader(NOMBRE_ARCHIVO))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(CLIENTESTXT))) {
             String linea;
             linea = lector.readLine();
             clientesStr.add(linea);
@@ -108,7 +108,7 @@ public class ClienteDao {
         }
 
         if (cliente != null) {
-            try (BufferedWriter escritor = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO))) {
+            try (BufferedWriter escritor = new BufferedWriter(new FileWriter(CLIENTESTXT))) {
                 for (String clienteStr : clientesStr) {
                     escritor.write(clienteStr);
                     escritor.newLine();
@@ -127,7 +127,7 @@ public class ClienteDao {
         List<String> nuevosDatos = new ArrayList<>();
         boolean clienteEncontrado = false;
 
-        try (BufferedReader lector = new BufferedReader(new FileReader(NOMBRE_ARCHIVO))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(CLIENTESTXT))) {
             String linea = lector.readLine(); 
             nuevosDatos.add(linea);         
             while ((linea = lector.readLine()) != null) {               
@@ -154,7 +154,7 @@ public class ClienteDao {
             throw new ClienteNoEncontradoException("Cliente no encontrado con DNI: " + cliente.getDni());
         }
 
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO))) {
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(CLIENTESTXT))) {
             for (String datos : nuevosDatos) {
                 escritor.write(datos);
                 escritor.newLine();
@@ -165,7 +165,7 @@ public class ClienteDao {
     }
 
     public Cliente mostrarCliente(long dni) {
-        try (BufferedReader lector = new BufferedReader(new FileReader(NOMBRE_ARCHIVO))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(CLIENTESTXT))) {
             String linea;
             linea = lector.readLine();
             while ((linea = lector.readLine()) != null) {
@@ -192,7 +192,7 @@ public class ClienteDao {
     public List<Cliente> mostrarTodosLosClientes() {
         List<Cliente> clientes = new ArrayList<>();
 
-        try (BufferedReader lector = new BufferedReader(new FileReader(NOMBRE_ARCHIVO))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader(CLIENTESTXT))) {
             String linea;
             linea = lector.readLine();
             while ((linea = lector.readLine()) != null) {
