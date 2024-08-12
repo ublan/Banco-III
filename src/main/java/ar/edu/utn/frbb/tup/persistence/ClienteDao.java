@@ -47,7 +47,7 @@ public class ClienteDao {
     public Cliente findByDni(long dni) {
         try (BufferedReader lector = new BufferedReader(new FileReader(CLIENTESTXT))) {
             String linea;
-            lector.readLine(); // Leer la línea de encabezado
+            lector.readLine();
             while ((linea = lector.readLine()) != null) {
                 String[] datos = linea.split(",");
                 if (Long.parseLong(datos[0]) == dni) {

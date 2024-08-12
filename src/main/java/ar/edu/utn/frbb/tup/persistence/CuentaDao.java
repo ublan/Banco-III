@@ -57,7 +57,7 @@ public class CuentaDao {
         boolean archivoNuevo = !(new File(CUENTASTXT).exists());
 
         try (BufferedWriter escritor = new BufferedWriter(new FileWriter(CUENTASTXT, true))) {
-            // Si el archivo es nuevo, escribir la cabecera
+        
             if (archivoNuevo) {
                 escritor.write("CBU,nombre,tipoCuenta,balance,moneda,fechaCreacion,titularDni");
                 escritor.newLine();

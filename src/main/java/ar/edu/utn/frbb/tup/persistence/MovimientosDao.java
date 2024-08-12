@@ -53,7 +53,7 @@ public class MovimientosDao {
 
         try (BufferedReader lector = new BufferedReader(new FileReader(rutaArchivo))) {
             String linea;
-            lector.readLine(); // Leer y descartar la línea de encabezado
+            lector.readLine();
 
             while ((linea = lector.readLine()) != null) {
                 String[] datos = linea.split(",");
